@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./front-alurabooks
+      dockerfile: Dockerfile
+    image: front-alurabooks
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./front-alurabooks:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: npm start
+
+  backend:
+    build:
+      context: ./api-alurabooks
+      dockerfile: Dockerfile
+    image: api-alurabooks
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./api-alurabooks:/app
+      - /app/node_modules
+    command: npm run start-auth
